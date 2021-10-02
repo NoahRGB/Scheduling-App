@@ -5,7 +5,7 @@ const Header = ({ todayInfo }) => {
 
     const addDayEnding = (day) => {
         if (day) {
-            const attempt = endingConversions[parseInt(day[day.length-1])];
+            const attempt = endingConversions[day-1];
             return (attempt ? attempt : "th");
         }
     }

@@ -6,6 +6,7 @@
 
 .white { background-color: white; }
 .blue { background-color: #34e1eb; }
+.clickable { cursor: pointer; }
 
 .header {
     width: 100%;
@@ -22,7 +23,15 @@
 .block {
     text-align: center;
     width: 9.8vw;
-    height: 5vw;
+    overflow: auto;
     border: 0.1vw solid black;
     padding: 2vw 0 2vw 0;
+}
+
+.block-highlight {
+    background-color: #c4c4c4;
+}
+
+.icon {
+    width: 2vw;
 }

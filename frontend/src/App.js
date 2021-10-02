@@ -10,7 +10,7 @@ function App() {
   const monthStringConversions = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const monthDayConversions = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-  const populateDateInfo = () => {
+  const populateDateInfo = async () => {
     //sets date info state (for header)
     const now = new Date();
     const day = now.getDate();
@@ -20,33 +20,40 @@ function App() {
     //sets date block state (for calendar display)
     let newDateBlocks = [];
     for (let i = 1; i <= monthDayConversions[month]; i++) {
+      const fullDate = `${i}/${month+1}/${year}`;
+      let activities = await fetchActivities(fullDate);
       newDateBlocks.push({
         id: i,
-        date: `${i}/${month}/${year}`,
-        colour: (i == day ? "blue" : "white"),
+        date: fullDate,
+        activities,
+        isToday: i == day
       });
     }
     setBlocks([...blocks, ...newDateBlocks]);
   }
 
+
+
+  const fetchActivities = async date => {
+    let response = await fetch("http://localhost:8000/getactivities", {
+      method: "POST",
+      mode: "cors",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ date })
+    });
+    let data = await response.json();
+    return data;
+  }
+
   useEffect(() => {
     populateDateInfo();
-    fetch("http://localhost:8000/getactivities", {
-      method: "POST",
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        user: "Noah",
-        date: "03/07/2004"
-      })
-    })
-        .then(response => console.log(response));
 
   }, []);
 
   return (
     <div className="App">
       <Header todayInfo={currentDateInfo}/>
-      <BlockContainer blocks={blocks} />
+      <BlockContainer blocks={blocks}/>
     </div>
   );
 }
