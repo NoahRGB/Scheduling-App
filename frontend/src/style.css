@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Poppins;
+}
+
+.white { background-color: white; }
+.blue { background-color: #34e1eb; }
+
+.header {
+    width: 100%;
+    text-align: center;
+    padding: 2vw 0;
+}
+
+.block-container {
+    margin: 0 0 0 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.block {
+    text-align: center;
+    width: 9.8vw;
+    height: 5vw;
+    border: 0.1vw solid black;
+    padding: 2vw 0 2vw 0;
+}
