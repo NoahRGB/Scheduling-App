@@ -1,11 +1,18 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom"
+
 import BlockContainer from "./BlockContainer";
 import Header from "./Header";
+import Login from "./Login";
+import Register from "./Register";
+import Homepage from "./Homepage";
+import { LoginContext } from "./Context";
 import "./style.css";
 
 function App() {
   const [blocks, setBlocks] = useState([]);
   const [currentDateInfo, setCurrentDateInfo] = useState({});
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const monthStringConversions = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const monthDayConversions = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -26,13 +33,11 @@ function App() {
         id: i,
         date: fullDate,
         activities,
-        isToday: i == day
+        isToday: i === day
       });
     }
     setBlocks([...blocks, ...newDateBlocks]);
   }
-
-
 
   const fetchActivities = async date => {
     let response = await fetch("http://localhost:8000/getactivities", {
@@ -47,13 +52,29 @@ function App() {
 
   useEffect(() => {
     populateDateInfo();
-
   }, []);
 
   return (
-    <div className="App">
-      <Header todayInfo={currentDateInfo}/>
-      <BlockContainer blocks={blocks}/>
+    <div className="App">    
+      <BrowserRouter>
+        <LoginContext.Provider value={{setIsAuthenticated}}>
+          <Switch>
+            <Route exact path="/register">
+              <Register/>
+            </Route>
+            <Route exact path="/login">
+              <Login/>
+            </Route>
+            <Route exact path="/">
+              <Homepage/>
+            </Route>
+          </Switch>
+          <Route exact path="/calendar">
+            <Header todayInfo={currentDateInfo}/>
+            <BlockContainer blocks={blocks}/>
+          </Route>
+        </LoginContext.Provider>
+      </BrowserRouter>
     </div>
   );
 }

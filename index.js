@@ -6,18 +6,25 @@ require("dotenv").config();
 
 const app = express();
 app.use(cors());
-app.use(bodyParser.json());
 
-//connection parameters added in dotenv file
-const dbPool = new Pool()
-// dbPool.query("SELECT * FROM Users", (err, res) => {
-//   console.log(err, res);
-//   dbPool.end();
-// })
-
+const dbPool = new Pool(); //connection parameters for db included in dotenv file
 
 app.get("/testRoute", (req, res) => {
     res.send("Test route working!");
+});
+
+app.use(bodyParser.json());
+
+app.post("/login", (req, res) => {
+    const loginQuery = "SELECT * FROM Users WHERE username=$1 AND password=$2;";
+    console.log(req.body.username, req.body.password);
+    dbPool.query(loginQuery, [req.body.username, req.body.password], (err, response) => {
+        if (response.rows.length == 1) {
+            res.send(`{ "status": "success" }`);
+        } else {
+            res.send(`{ "status": "fail" }`);
+        }
+    });
 });
 
 app.post("/getActivities", (req, res) => {

@@ -25,7 +25,7 @@ const ExpandableList = ({ name, listItems }) =>  {
         <div className="expandable-list">
             <div className="center-text clickable" onClick={toggleExpansion}>
                 <p>{name}</p>
-                <img className="icon" src={expandIcon}/>
+                <img className="icon" src={expandIcon} alt=""/>
             </div>
             { isExpanded && <Expansion items={listItems}/> } 
         </div>
