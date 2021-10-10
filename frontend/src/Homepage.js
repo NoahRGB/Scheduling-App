@@ -2,7 +2,6 @@ import Login from "./Login";
 import Register from "./Register";
 import "./style.css";
 
-
 const Homepage = () => {
     return (
         <div className="homepage">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect, createContext, useContext } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom"
 
 import BlockContainer from "./BlockContainer";
@@ -13,6 +13,9 @@ function App() {
   const [blocks, setBlocks] = useState([]);
   const [currentDateInfo, setCurrentDateInfo] = useState({});
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userLoggedIn, setUserLoggedIn] = useState("");
+
+  const ctx = useContext(LoginContext);
 
   const monthStringConversions = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const monthDayConversions = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -44,7 +47,7 @@ function App() {
       method: "POST",
       mode: "cors",
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ date })
+      body: JSON.stringify({ date, username:userLoggedIn })
     });
     let data = await response.json();
     return data;
@@ -57,7 +60,7 @@ function App() {
   return (
     <div className="App">    
       <BrowserRouter>
-        <LoginContext.Provider value={{setIsAuthenticated}}>
+        <LoginContext.Provider value={{setIsAuthenticated, setUserLoggedIn}}>
           <Switch>
             <Route exact path="/register">
               <Register/>

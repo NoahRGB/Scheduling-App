@@ -1,12 +1,14 @@
 import "./style.css";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom"; 
+import { LoginContext } from "./Context";
 
 const Register = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     const history = useHistory();
+    const ctx = useContext(LoginContext);
 
     const registerCheck = async () => {
         let response = await fetch("http://localhost:8000/register", {
@@ -22,6 +24,7 @@ const Register = () => {
     const onSubmit = async () => {
         const response = await registerCheck();
         if (response.status == "User registered") {
+            ctx.setUserLoggedIn(username);
             history.push("/login");
         } else {
             alert(response.status);

@@ -44,6 +44,7 @@ app.post("/register", (req, res) => {
 app.post("/getActivities", (req, res) => {
     let activities = [];
     let responseRows;
+    console.log(req.body.username);
     const date = convertToPgDate(req.body.date);
     const activityQuery = "SELECT * FROM Activities WHERE activitydate=$1;";
     dbPool.query(activityQuery, [date], (err, response) => {
