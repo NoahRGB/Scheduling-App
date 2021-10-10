@@ -27,6 +27,20 @@ app.post("/login", (req, res) => {
     });
 });
 
+app.post("/register", (req, res) => {
+    const existingCheckQuery = "SELECT * FROM Users WHERE username=$1";
+    const registerQuery = "INSERT INTO Users(username, password) VALUES($1, $2)";
+    dbPool.query(existingCheckQuery, [req.body.username], (err, response) => {
+        if (response.rows.length == 0) {
+            dbPool.query(registerQuery, [req.body.username, req.body.password], (e, r) => {
+                res.send(`{ "status": "User registered" }`);
+            });
+        } else {
+            res.send(`{ "status": "User already exists" }`);
+        }
+    });
+});
+
 app.post("/getActivities", (req, res) => {
     let activities = [];
     let responseRows;

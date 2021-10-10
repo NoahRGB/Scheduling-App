@@ -38,7 +38,7 @@ const Login = () => {
     return (
         <LoginContext.Consumer>{(context) => {
             return (
-                <div className="login-page">
+                <div className="form-page">
                     <div className="form-container">
                         <h1>Login</h1>
                         <form action="http://localhost:8000/login" method="POST" onSubmit={pd}>
