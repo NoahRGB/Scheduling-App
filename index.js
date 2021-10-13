@@ -41,16 +41,24 @@ app.post("/register", (req, res) => {
     });
 });
 
+app.post("/add-event", (req, res) => {
+    const addEventQuery = "INSERT INTO Activities(activitydate, username, text) VALUES($1, $2, $3)";
+    const fullDate = `${req.body.dateInfo.day}/${req.body.dateInfo.month+1}/${req.body.dateInfo.year}`;
+    console.log(convertToPgDate(fullDate), req.body.username, req.body.activity);
+    dbPool.query(addEventQuery, [convertToPgDate(fullDate), req.body.username, req.body.activity], (err, response) => {
+        res.send(`{ "status": "success" }`);
+    });
+});
+
 app.post("/getActivities", (req, res) => {
     let activities = [];
     let responseRows;
-    console.log(req.body.username);
     const date = convertToPgDate(req.body.date);
     const activityQuery = "SELECT * FROM Activities WHERE activitydate=$1;";
     dbPool.query(activityQuery, [date], (err, response) => {
         let names = [];
         if (response) {
-            response.rows.forEach(row => names.push(row.name));
+            response.rows.forEach(row => names.push(row.text));
         }
         names.length == 0 && names.push("No events planned")
         res.send(names);

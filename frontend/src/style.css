@@ -9,9 +9,17 @@
 .clickable { cursor: pointer; }
 
 .header {
+    display: flex;
     width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
     text-align: center;
     padding: 2vw 0;
+}
+
+a {
+    text-decoration: none;
 }
 
 .block-container {

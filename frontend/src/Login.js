@@ -24,10 +24,10 @@ const Login = () => {
 
     const onSubmit = async () => {
         const authCheck = await checkAuthenticate(username, password);
-        if (authCheck.status == "success") {
+        if (authCheck.status === "success") {
             ctx.setIsAuthenticated(true);
             history.push("/calendar");
-        } else if (authCheck.status == "fail") {
+        } else if (authCheck.status === "fail") {
             ctx.setIsAuthenticated(false);
             alert("Login attempt failed");
         }

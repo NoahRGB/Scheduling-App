@@ -23,7 +23,7 @@ const Register = () => {
 
     const onSubmit = async () => {
         const response = await registerCheck();
-        if (response.status == "User registered") {
+        if (response.status === "User registered") {
             ctx.setUserLoggedIn(username);
             history.push("/login");
         } else {

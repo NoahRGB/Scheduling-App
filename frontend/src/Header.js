@@ -1,7 +1,11 @@
+import React, { useContext } from "react";
+import { LoginContext } from "./Context";
 import "./style.css";
 
-const Header = ({ todayInfo }) => {
-    const endingConversions = ["st", "nd", "rd"]; 
+const Header = () => {
+    const endingConversions = ["st", "nd", "rd"];
+
+    const ctx = useContext(LoginContext);
 
     const addDayEnding = (day) => {
         if (day) {
@@ -13,8 +17,14 @@ const Header = ({ todayInfo }) => {
 
     return (
         <div className="header">
-            <h1>Calendar</h1><br/>
-            <h2>{`${`${todayInfo.day}${addDayEnding(todayInfo.day)}`} ${todayInfo.month}, ${todayInfo.year}`}</h2>
+            <div className="title-section">
+                <h1>Calendar</h1>
+                <h2>{`${`${ctx.currentDateInfo.day}${addDayEnding(ctx.currentDateInfo.day)}`} ${ctx.currentDateInfo.month}, ${ctx.currentDateInfo.year}`}</h2>
+            </div>
+            <div className="navigation">
+                <a href="/login"><h1>Login</h1></a>
+                <a href="/add-event"><h1>Add Events</h1></a>
+            </div>
         </div>
     );
 }
