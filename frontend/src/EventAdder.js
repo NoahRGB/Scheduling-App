@@ -1,24 +1,23 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom"; 
-import { LoginContext } from "./Context";
+import { AppContext } from "./Context";
 
 const EventAdder = ({ dateInfo }) => {
     const [newEvent, setNewEvent] = useState("");
 
-    const ctx = useContext(LoginContext);
+    const ctx = useContext(AppContext);
     const history = useHistory();
 
     const addEvent = async (event) => {
-        const now = new Date();
-        console.log(ctx.userLoggedIn)
+        const dateInfo = JSON.parse(ctx.accessSessionStorage("dateInfo"));
         let response = await fetch("http://localhost:8000/add-event", {
             method: "POST",
             mode: "cors",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
                 activity:event, 
-                username:ctx.userLoggedIn, 
-                dateInfo:{day:now.getDate(), month:now.getMonth(), year:now.getFullYear()} 
+                username:ctx.accessSessionStorage("username"), 
+                dateInfo
             })
         });
         let data = await response.json();
@@ -38,14 +37,13 @@ const EventAdder = ({ dateInfo }) => {
 
     return (
         <>
-            {console.log(dateInfo)}
             <div className="form-page">
                 <div className="form-container">
                     <h1>Add New Event</h1>
                     <form action="http://localhost:8000/add-activity" method="POST" onSubmit={pd}>
                         <label htmlFor="text">Event:</label><br/>
                         <input name="text" className="input" onChange={_ => setNewEvent(_.target.value)}/><br/>
-                        <input type="submit" value="Login" onClick={e => onSubmit()}/>
+                        <input type="submit" value="Add Event" onClick={e => onSubmit()}/>
                     </form>
                 </div>
             </div>

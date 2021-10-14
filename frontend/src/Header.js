@@ -1,11 +1,13 @@
-import React, { useContext } from "react";
-import { LoginContext } from "./Context";
+import React, { useState, useContext } from "react";
+import { AppContext } from "./Context";
 import "./style.css";
 
 const Header = () => {
-    const endingConversions = ["st", "nd", "rd"];
+    const ctx = useContext(AppContext);
+    const [dateInfo, setDateInfo] = useState(JSON.parse(ctx.accessSessionStorage("dateInfo")));
 
-    const ctx = useContext(LoginContext);
+    const monthStringConversions = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const endingConversions = ["st", "nd", "rd"];
 
     const addDayEnding = (day) => {
         if (day) {
@@ -19,7 +21,7 @@ const Header = () => {
         <div className="header">
             <div className="title-section">
                 <h1>Calendar</h1>
-                <h2>{`${`${ctx.currentDateInfo.day}${addDayEnding(ctx.currentDateInfo.day)}`} ${ctx.currentDateInfo.month}, ${ctx.currentDateInfo.year}`}</h2>
+                <h2>{`${`${dateInfo.day}${addDayEnding(dateInfo.day)}`} ${monthStringConversions[dateInfo.month]}, ${dateInfo.year}`}</h2>
             </div>
             <div className="navigation">
                 <a href="/login"><h1>Login</h1></a>

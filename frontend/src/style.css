@@ -8,6 +8,14 @@
 .blue { background-color: #34e1eb; }
 .clickable { cursor: pointer; }
 
+.homepage {
+    display: flex;
+    height: 100vh;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
 .header {
     display: flex;
     width: 100%;
@@ -26,6 +34,15 @@ a {
     margin: 0 0 0 0;
     display: flex;
     flex-wrap: wrap;
+}
+
+.expansion {
+    width: 50%;
+    margin: 0 0 0 25%;
+}
+
+ul {
+    text-align: left;
 }
 
 .block {

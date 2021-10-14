@@ -7,6 +7,7 @@ const Expansion = ({ items }) => {
         <div className="expansion">
             <ul>
                 { items.map(item => 
+                    // { item == 'No events planned' ? <p>{item}</p> :  }
                     <li key={item}><p>{item}</p></li>
                 ) }
             </ul>

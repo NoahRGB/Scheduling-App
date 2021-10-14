@@ -1,25 +1,29 @@
 import React, { useState, useContext } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom"
+import { BrowserRouter, Route, Switch, useHistory } from "react-router-dom"
 
 import Login from "./Login";
 import Register from "./Register";
 import Homepage from "./Homepage";
 import Calendar from "./Calendar";
 import EventAdder from "./EventAdder";
-import { LoginContext } from "./Context";
+import { AppContext } from "./Context";
 import "./style.css";
 
 function App() {
-  const [currentDateInfo, setCurrentDateInfo] = useState({});
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userLoggedIn, setUserLoggedIn] = useState("");
-  //
-  const ctx = useContext(LoginContext);
+  const accessSessionStorage = (name) => {
+    return sessionStorage.getItem(name);
+  }
+
+  const setSessionStorage = (name, value) => {
+    sessionStorage.setItem(name, value);
+  }
+  
+  const ctx = useContext(AppContext);
 
   return (
     <div className="App">    
       <BrowserRouter>
-        <LoginContext.Provider value={{setIsAuthenticated, setUserLoggedIn, setCurrentDateInfo, userLoggedIn, currentDateInfo}}>
+        <AppContext.Provider value={{setSessionStorage, accessSessionStorage}}>
           <Switch>
             <Route exact path="/register">
               <Register/>
@@ -37,7 +41,7 @@ function App() {
           <Route exact path="/add-event">
             <EventAdder/>
           </Route>
-        </LoginContext.Provider>
+        </AppContext.Provider>
       </BrowserRouter>
     </div>
   );
