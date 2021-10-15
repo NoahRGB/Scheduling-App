@@ -58,9 +58,9 @@ const Calendar = ({ todayInfo }) => {
 
     return (
         <>
-        {console.log(ctx.accessSessionStorage("username"))}
-            <Header/>
-            <BlockContainer blocks={blocks}/>
+          {console.log(ctx.accessSessionStorage("username"))}
+          <Header/>
+          <BlockContainer blocks={blocks}/>
         </>
     );
 }

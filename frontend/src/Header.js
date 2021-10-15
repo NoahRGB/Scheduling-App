@@ -21,7 +21,7 @@ const Header = () => {
         <div className="header">
             <div className="title-section">
                 <h1>Calendar</h1>
-                <h2>{`${`${dateInfo.day}${addDayEnding(dateInfo.day)}`} ${monthStringConversions[dateInfo.month]}, ${dateInfo.year}`}</h2>
+                <h2>{dateInfo && `${dateInfo.day}${addDayEnding(dateInfo.day)} ${monthStringConversions[dateInfo.month]}, ${dateInfo.year}`}</h2>
             </div>
             <div className="navigation">
                 <a href="/login"><h1>Login</h1></a>
