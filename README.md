@@ -10,13 +10,6 @@ The UI is not finalised currently, but the main functionality is in place where 
 <img src="https://i.postimg.cc/G28S1xRM/Screenshot-2021-10-15-at-20-23-53.png" width="300px"/>
 <img src="https://i.postimg.cc/FHK2WP24/Screenshot-2021-10-14-at-21-16-43.png" width="300px"/>
 
-
-
-# Database Structure
-The structure of the databse used is very simple. It includes 2 tables, Users and Activities, with a simple one to many relationship between them
-
-<img src="https://i.postimg.cc/q7bD6ZQB/Screenshot-2021-10-15-at-20-41-55.png" width="500px"/>
-
 # To-do
 - [ ] Encryption for passwords
 - [ ] Reminders for upcoming events
